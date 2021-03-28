@@ -1,0 +1,5 @@
+post or get
+validation 
+Xss Clean
+fetch and store -> model
+model -> db
