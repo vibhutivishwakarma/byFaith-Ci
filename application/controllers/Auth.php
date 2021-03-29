@@ -19,17 +19,9 @@ class Auth extends CI_Controller
     //-------login page function
     public function login()
     {
-
-        // dd('asdasdas');
-        
-        // $delimiter = '-';
-        // $str = "Chandra dasd";
-        // echo $slug = url_title($str, 'dash', true);
-        // die;
-
-        $data['title'] = "Login Page";
-        $data['content'] = $this->load->view('auth/login', $data, true);
-        return $this->load->view('layout_master', $data);
+      $data['title'] = "Login Page";
+      $data['content'] = $this->load->view('auth/login', $data, true);
+      return $this->load->view('layout_master', $data);
     }
 
 
@@ -37,35 +29,34 @@ class Auth extends CI_Controller
 
     public function dologin(){
 
+      $this->form_validation->set_rules('email', 'Email Address', 'trim|required');
+      $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
-        $this->form_validation->set_rules('email', 'Email Address', 'trim|required');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+      if ($this->form_validation->run() == FALSE) {
 
-        if ($this->form_validation->run() == FALSE) {
+          $this->login();
+          
+      } else {
 
-            $this->login();
-            
-        } else {
+          $Email = $this->input->post('email');
+          $Pass = $this->input->post('password');
+          
+          $this->load->model('User_model');
+          $login = $this->User_model->loginModel($Email, $Pass);
+          // var_dump($login); die();
+          if($login){
 
-            $Email = $this->input->post('email');
-            $Pass = $this->input->post('password');
-            
-            $this->load->model('User_model');
-            $login = $this->User_model->loginModel($Email , $Pass);
-            if($login){
+              redirect('base');
+          }
+          else{
+              
+              $this->login();
+          }
 
-                redirect('base');
-            }
-            else{
-                
-                $this->login();
-            }
-
-           
-        } 
-
-
+          
+      } 
     }
+
     //-------sign up page function
     public function signup()
     {
@@ -97,7 +88,7 @@ class Auth extends CI_Controller
                 'firstname' =>  $data['firstname'],
                 'lastname' => $data['lastname'],
                 'email' => $data['email'],
-                'password' => password_hash($data['password'], PASSWORD_BCRYPT),
+                'password' => password_hash($data['password'], PASSWORD_DEFAULT),
                 // 'password'=>$data['password'],
                 'number' => $data['number'],
                 'address' => $data['address'],

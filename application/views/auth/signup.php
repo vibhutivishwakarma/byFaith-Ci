@@ -6,7 +6,7 @@
         <h1 class="text-center mb-2 pb-3 ">Sign Up</h1>
         <div class="col-md-2"></div>
         <div class="col-md-8 mx-auto mt-4">
-          <?= form_open('signup')?>
+          <?= form_open('signing-up')?>
           <!-- <form > -->
             <div class="form-row">
               <div class="form-group col-md-6">

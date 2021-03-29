@@ -1,15 +1,15 @@
-<!--  
+ 
  <?php 
   if( !$this->session->userdata('validated') == TRUE )
   {
     redirect('logged-in');
   }
-  ?> -->
+  ?>
   <div class="bg-img">
   <div class="container-fluid">
     <div class="row mainSection">
       <div class="col-md-6 col-12 welcome customWelcome">
-          <p>Welcome! <?php echo $this->session->userdata('firstname'); ?></p>
+          <h3>Welcome! <?php echo $this->session->userdata('firstname'); ?></h3>
         <h6>WELCOME TO BYFAITH CHURCH</h6>
         <h1>Oh Safe To The Rock That Is Higher Than I</h1>
         <p>

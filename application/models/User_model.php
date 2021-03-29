@@ -6,29 +6,28 @@ class User_model extends CI_Model
 
     public function getdata()
     {
-
         $query = $this->db->get('users', 10);
         return $query->result();
     }
 
     public function registerModel($formData)
     {
-
         $this->db->insert('users', $formData);
     }
 
     public function loginModel($Email, $Pass)
     {   
         $this->db->where('email', $Email);
-        $hashed_password = password_hash($Pass, PASSWORD_BCRYPT);
-
-        // $this->db->where('password',$hashed_password);
-
         $query= $this->db->get('users');
-        // return $query->row();
+        $pwd = $query->row();
 
-        if (password_verify('password', $hashed_password )) {
+        //hashed password from database.
+        $hashed = $pwd->password;
 
+        // var_dump($hashed); die();
+
+        //We don't need to convert user entered password into hash before inserting into password verify function.
+        if (password_verify($Pass, $hashed)) {
             $row = $query->row();
             $data = array(
               'uid' => $row->id,
